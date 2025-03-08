@@ -9,7 +9,7 @@ RUN apk add --no-cache \
 # Copy root filesystem
 COPY rootfs /
 
-# Setup app directory
+# Setup application directory
 WORKDIR /usr/src/app
 
 # Copy app files
@@ -20,7 +20,12 @@ RUN chmod a+x /etc/services.d/duplicate-video-finder/run \
     && chmod a+x /usr/src/app/run.py
 
 # Install Python requirements
-RUN cd /usr/src/app && pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
 
-# Use S6-Overlay init system
+# Set S6 logging format
+ENV S6_CMD_WAIT_FOR_SERVICES=1 \
+    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+    S6_SERVICES_GRACETIME=0
+
+# Set proper entrypoint
 ENTRYPOINT ["/init"]

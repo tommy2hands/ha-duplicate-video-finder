@@ -1,9 +1,12 @@
-#!/usr/bin/with-contenv bashio
+#!/command/with-contenv bashio
 
-bashio::log.info "Starting Duplicate Video Finder..."
+# ==============================================================================
+# Start Duplicate Video Finder service
+# ==============================================================================
+bashio::log.info "Starting Duplicate Video Finder service..."
 
 # Change to the app directory
-cd /usr/src/app
+cd /usr/src/app || bashio::exit.nok "Could not change to app directory"
 
-# Run the application without using exec to prevent PID 1 issues
+# Run application (but don't use exec)
 python3 /usr/src/app/run.py
