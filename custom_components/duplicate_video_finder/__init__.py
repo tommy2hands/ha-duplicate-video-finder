@@ -23,7 +23,7 @@ from .const import (
     STATE_SCANNING,
 )
 from .scanner import DuplicateVideoScanner
-from .frontend import async_setup_frontend
+from .sidebar import setup_sidebar
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -33,6 +33,11 @@ CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({})}, extra=vol.ALLOW_EXTRA)
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the Duplicate Video Finder component."""
     hass.data[DOMAIN] = {}
+    
+    # Setup sidebar menu on component setup
+    # This ensures the menu item appears even before a config entry is added
+    setup_sidebar(hass)
+    
     return True
 
 
@@ -56,9 +61,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.services.async_register(
         DOMAIN, SERVICE_START_SCAN, start_scan_service
     )
-    
-    # Set up frontend
-    await async_setup_frontend(hass)
     
     # Set up sensor platform
     hass.async_create_task(

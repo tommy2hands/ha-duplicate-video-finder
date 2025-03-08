@@ -2,7 +2,7 @@
   "domain": "duplicate_video_finder",
   "name": "Duplicate Video Finder",
   "documentation": "https://github.com/tommy2hands/ha-duplicate-video-finder",
-  "dependencies": ["frontend"],
+  "dependencies": ["frontend", "panel_iframe", "http"],
   "codeowners": ["@tommy2hands"],
   "requirements": [],
   "iot_class": "local_polling",
