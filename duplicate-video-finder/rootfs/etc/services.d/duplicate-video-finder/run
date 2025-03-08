@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.info "Starting Duplicate Video Finder..."
+
+# Change to the app directory
+cd /app
+
+# Run the Python script
+exec python3 /app/run.py
