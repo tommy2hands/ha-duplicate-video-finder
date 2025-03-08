@@ -294,7 +294,7 @@ def main():
     try:
         # Start the Uvicorn server
         logger.info("Starting Duplicate Video Finder")
-        uvicorn.run("run:app", host="0.0.0.0", port=7000, log_level="info")
+        uvicorn.run(app, host="0.0.0.0", port=7000, log_level="info")
     except Exception as e:
         logger.error(f"Error starting server: {e}")
         sys.exit(1)

@@ -15,10 +15,11 @@ WORKDIR /usr/src/app
 # Copy app files
 COPY app /usr/src/app/
 
-# Install Python requirements
-RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
+# Make scripts executable
+RUN chmod a+x /etc/services.d/duplicate-video-finder/run \
+    && chmod a+x /usr/src/app/run.py
 
-# Set executable
-RUN chmod a+x /etc/services.d/duplicate-video-finder/run
+# Install Python requirements
+RUN cd /usr/src/app && pip3 install --no-cache-dir -r requirements.txt
 
 CMD ["/init"]
