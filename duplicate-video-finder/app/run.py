@@ -7,7 +7,7 @@ import logging
 import hashlib
 import time
 from pathlib import Path
-from typing import Dict, List, Any, Set, Tuple
+from typing import Dict, List, Any, Set, Tuple, Optional
 
 import uvicorn
 from fastapi import FastAPI, Request, HTTPException, Depends
@@ -67,7 +67,7 @@ log_level = getattr(logging, config.get("log_level", "info").upper())
 logger.setLevel(log_level)
 
 # Store the scan results
-scan_results = []
+scan_results = {}
 scan_status = {
     "status": "idle",
     "last_scan": None,
@@ -78,8 +78,8 @@ scan_status = {
 
 
 class ScanRequest(BaseModel):
-    paths: List[str] = None
-    exclude_paths: List[str] = None
+    paths: Optional[List[str]] = None
+    exclude_paths: Optional[List[str]] = None
     scan_by_content: bool = False
 
 
