@@ -11,7 +11,7 @@ from typing import Dict, List, Any, Set, Tuple, Optional
 
 import uvicorn
 from fastapi import FastAPI, Request, HTTPException, Depends
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -218,18 +218,18 @@ async def root(request: Request):
 @app.get("/api/status")
 async def get_status():
     """Get the current scan status."""
-    return JSONResponse(scan_status)
+    return scan_status
 
 
 @app.get("/api/results")
 async def get_results():
     """Get the scan results."""
-    return JSONResponse({
+    return {
         "duplicates": [
             {"name": name, "count": len(paths), "paths": paths}
             for name, paths in scan_results.items()
         ]
-    })
+    }
 
 
 @app.post("/api/scan")
@@ -266,10 +266,10 @@ async def start_scan(request: ScanRequest):
     except Exception as e:
         logger.error(f"Error during scan: {e}")
         scan_status["status"] = "error"
-        return JSONResponse({"status": "error", "message": str(e)})
+        return {"status": "error", "message": str(e)}
 
     scan_status["status"] = "idle"
-    return JSONResponse({"status": "success", "duplicate_sets": len(scan_results)})
+    return {"status": "success", "duplicate_sets": len(scan_results)}
 
 
 @app.post("/api/delete")
@@ -283,10 +283,10 @@ async def delete_file(request: DeleteRequest):
     try:
         os.remove(file_path)
         logger.info(f"Deleted file: {file_path}")
-        return JSONResponse({"status": "success", "message": f"File deleted: {file_path}"})
+        return {"status": "success", "message": f"File deleted: {file_path}"}
     except Exception as e:
-        logger.error(f"Error deleting file {file_path}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error deleting file: {e}")
+        return {"status": "error", "message": str(e)}
 
 
 def main():
