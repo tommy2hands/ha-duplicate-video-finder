@@ -1,0 +1,5 @@
+# Services for the Duplicate Video Finder integration
+
+start_scan:
+  name: Start Scan
+  description: Start scanning for duplicate video files.

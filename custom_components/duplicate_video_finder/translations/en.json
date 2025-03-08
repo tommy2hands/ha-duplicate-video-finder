@@ -1,0 +1,14 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Duplicate Video Finder",
+        "description": "This integration will scan your file system for duplicate video files."
+      }
+    },
+    "abort": {
+      "already_configured": "Duplicate Video Finder is already configured"
+    }
+  },
+  "title": "Duplicate Video Finder"
+}
