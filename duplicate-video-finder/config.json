@@ -32,5 +32,6 @@
   "ingress_port": 7000,
   "panel_icon": "mdi:video-multiple",
   "panel_title": "Duplicate Videos",
-  "map": ["media:rw", "share:rw", "ssl:ro"]
+  "map": ["media:rw", "share:rw", "ssl:ro"],
+  "image": "ghcr.io/home-assistant/{arch}-base:3.16"
 }
