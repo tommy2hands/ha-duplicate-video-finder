@@ -1,13 +1,13 @@
 {
   "name": "Duplicate Video Finder",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "slug": "duplicate_video_finder",
   "description": "Scan your file system for duplicate video files",
   "url": "https://github.com/tommy2hands/ha-duplicate-video-finder",
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
   "startup": "application",
   "boot": "auto",
-  "init": true,
+  "init": false,
   "options": {
     "scan_paths": ["/media", "/share"],
     "exclude_paths": [],
@@ -29,9 +29,5 @@
   "ingress_port": 7000,
   "panel_icon": "mdi:video-multiple",
   "panel_title": "Duplicate Videos",
-  "hassio_api": true,
-  "hassio_role": "default",
-  "homeassistant_api": false,
-  "host_network": false,
   "map": ["media:rw", "share:rw"]
 }
