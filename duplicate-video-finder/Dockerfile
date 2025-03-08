@@ -12,18 +12,30 @@ RUN apk add --no-cache \
     py3-requests \
     nginx
 
-# Create app directory
-WORKDIR /app
-COPY app /app
+# Create required directories
+RUN mkdir -p /app /app/static /app/templates
+
+# Install Python dependencies with specific versions
+RUN pip3 install --no-cache-dir \
+    fastapi==0.95.1 \
+    uvicorn==0.22.0 \
+    jinja2==3.1.2 \
+    pydantic==1.10.7 \
+    python-multipart==0.0.6
+
+# Copy application files
+COPY app/run.py /app/
+COPY app/static /app/static/
+COPY app/templates /app/templates/
 
 # Copy root filesystem
 COPY rootfs /
 
+# Set working directory
+WORKDIR /app
+
 # Fix permissions
 RUN chmod a+x /etc/services.d/*/run
 RUN chmod a+x /app/run.py
-
-# Install Python dependencies with specific versions
-RUN pip3 install --no-cache-dir fastapi==0.95.1 uvicorn==0.22.0 jinja2==3.1.2 pydantic==1.10.7 python-multipart==0.0.6
 
 CMD ["/init"]
