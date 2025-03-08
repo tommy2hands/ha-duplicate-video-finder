@@ -23,6 +23,7 @@ from .const import (
     STATE_SCANNING,
 )
 from .scanner import DuplicateVideoScanner
+from .frontend import async_setup_frontend
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -56,6 +57,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         DOMAIN, SERVICE_START_SCAN, start_scan_service
     )
     
+    # Set up frontend
+    await async_setup_frontend(hass)
+    
+    # Set up sensor platform
+    hass.async_create_task(
+        hass.config_entries.async_forward_entry_setup(entry, "sensor")
+    )
+    
     return True
 
 
@@ -63,6 +72,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     # Remove services
     hass.services.async_remove(DOMAIN, SERVICE_START_SCAN)
+    
+    # Unload sensor platform
+    await hass.config_entries.async_forward_entry_unload(entry, "sensor")
     
     # Cleanup
     hass.data[DOMAIN].pop(entry.entry_id)
