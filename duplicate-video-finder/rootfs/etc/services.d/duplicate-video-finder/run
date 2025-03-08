@@ -5,5 +5,5 @@ bashio::log.info "Starting Duplicate Video Finder..."
 # Change to the app directory
 cd /usr/src/app
 
-# Run the Python script
-exec python3 /usr/src/app/run.py
+# Run the application without using exec to prevent PID 1 issues
+python3 /usr/src/app/run.py

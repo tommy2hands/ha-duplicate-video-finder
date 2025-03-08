@@ -1,12 +1,12 @@
 {
   "name": "Duplicate Video Finder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "slug": "duplicate_video_finder",
   "description": "Scan your file system for duplicate video files",
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
   "startup": "application",
   "boot": "auto",
-  "init": false,
+  "init": true,
   "options": {
     "scan_paths": ["/media", "/share"],
     "exclude_paths": [],

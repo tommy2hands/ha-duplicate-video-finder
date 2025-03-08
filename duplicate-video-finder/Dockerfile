@@ -22,4 +22,5 @@ RUN chmod a+x /etc/services.d/duplicate-video-finder/run \
 # Install Python requirements
 RUN cd /usr/src/app && pip3 install --no-cache-dir -r requirements.txt
 
-CMD ["/init"]
+# Use S6-Overlay init system
+ENTRYPOINT ["/init"]
