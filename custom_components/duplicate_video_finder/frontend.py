@@ -5,6 +5,7 @@ import logging
 from homeassistant.components.frontend import add_extra_js_url
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.components.panel_iframe import async_register_panel as register_iframe_panel
 
 from .const import DOMAIN
 
@@ -24,17 +25,14 @@ async def async_setup_frontend(hass: HomeAssistant) -> bool:
 
 def register_panel(hass: HomeAssistant) -> None:
     """Register a panel in Home Assistant for the integration."""
-    # Register the panel
-    hass.components.frontend.async_register_built_in_panel(
-        component_name="iframe",
-        sidebar_title="Duplicate Videos",
-        sidebar_icon="mdi:video-multiple",
-        frontend_url_path="duplicate-video-finder",
-        config={
-            "url": "/api/duplicate_video_finder/dashboard",
-            "title": "Duplicate Video Finder"
-        },
+    # Register the panel using the panel_iframe component
+    register_iframe_panel(
+        hass,
+        "duplicate_video_finder",
+        "Duplicate Videos",
+        "/api/duplicate_video_finder/dashboard",
         require_admin=False,
+        icon="mdi:video-multiple"
     )
     
     # Register a view for the panel
