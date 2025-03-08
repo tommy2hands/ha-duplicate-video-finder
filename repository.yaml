@@ -1,4 +1,3 @@
-name: "Home Assistant Duplicate Video Finder"
-description: Home Assistant add-on to find and manage duplicate video files
+name: "Duplicate Video Finder"
 url: "https://github.com/tommy2hands/ha-duplicate-video-finder"
-maintainer: "tommy2hands <>"
+maintainer: "tommy2hands"

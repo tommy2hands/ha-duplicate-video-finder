@@ -27,11 +27,17 @@ logger = logging.getLogger("duplicate_video_finder")
 # Initialize FastAPI app
 app = FastAPI(title="Duplicate Video Finder")
 
+# Create the required directories if they don't exist
+static_dir = os.path.join(os.getcwd(), "static")
+templates_dir = os.path.join(os.getcwd(), "templates")
+os.makedirs(static_dir, exist_ok=True)
+os.makedirs(templates_dir, exist_ok=True)
+
 # Mount static files directory
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # Setup Jinja2 templates
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=templates_dir)
 
 # Video file extensions to look for
 VIDEO_EXTENSIONS = {
@@ -286,10 +292,6 @@ async def delete_file(request: DeleteRequest):
 def main():
     """Main entry point for the addon."""
     try:
-        # Create the required directories if they don't exist
-        os.makedirs("static", exist_ok=True)
-        os.makedirs("templates", exist_ok=True)
-
         # Start the Uvicorn server
         logger.info("Starting Duplicate Video Finder")
         uvicorn.run("run:app", host="0.0.0.0", port=7000, log_level="info")

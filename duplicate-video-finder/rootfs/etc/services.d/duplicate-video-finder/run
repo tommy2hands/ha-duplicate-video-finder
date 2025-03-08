@@ -3,7 +3,7 @@
 bashio::log.info "Starting Duplicate Video Finder..."
 
 # Change to the app directory
-cd /opt/duplicate_video_finder
+cd /usr/src/app
 
 # Run the Python script
-exec python3 /opt/duplicate_video_finder/run.py
+exec python3 /usr/src/app/run.py
